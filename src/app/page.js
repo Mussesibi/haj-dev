@@ -9,18 +9,7 @@ export default function Home() {
 
   return (
     <div>
-      <form onSubmit={handleClick}>
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input type="text" name="email" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <h1>Homepage 1</h1>
     </div>
   );
 }
