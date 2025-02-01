@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.icons {
+    display: flex;
+    gap: 15px; /* Adds spacing between icons */
+  }
+  .navbar {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+  }
+  .navbar a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s ease, transform 0.2s ease; /* Smooth transition */
+  }
+  
+  .navbar a:hover {
+    color: orange; /* Change text color on hover */
+    /* transform: scale(1.1); Slightly enlarge the item */
+  }
+  
+  .banners {
+    height: 125px;
+    width: auto;
+  }
