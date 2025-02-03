@@ -69,3 +69,31 @@ img {
   box-shadow: 2px 2px 5px 0 var(--border), 0 0 10px 2px rgba(0, 0, 0, 0.1);
   border: 5px solid yellow;
 }
+.icons {
+  display: flex;
+  gap: 15px; /* Adds spacing between icons */
+}
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+}
+.navbar a {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+.navbar a:hover {
+  color: orange; /* Change text color on hover */
+  /* transform: scale(1.1); Slightly enlarge the item */
+}
+
+.banners {
+  width: auto;
+}
