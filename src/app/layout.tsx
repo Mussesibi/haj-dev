@@ -1,3 +1,4 @@
+import Navbar from "./componentss/navbar";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -16,12 +17,22 @@ export const metadata = {
   description: "for elbows",
 };
 
+const navLinks = [
+  { name: "All Pipes", href: "#" },
+  { name: "All Fittings", href: "#" },
+  { name: "By Use", href: "#" },
+  { name: "Installation", href: "#" },
+  { name: "Sanitary", href: "#" },
+  { name: "Contact45", href: "#" },
+];
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Navbar navLinks={navLinks} />
         {children}
       </body>
     </html>
