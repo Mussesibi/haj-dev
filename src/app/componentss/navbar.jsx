@@ -1,16 +1,32 @@
 "use client";
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // Install if not installed
+import { usePathname } from "next/navigation";
+import LogOutBtn from "./authComponents/logout";
 function Navbar({ navLinks }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  let isDashboard = usePathname();
+  isDashboard = isDashboard.includes("/admin/dashboard");
+  let timeoutId;
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutId); // Cancel closing if hovering again
+    setIsDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutId = setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 200); // Delay closing by 200ms
+  };
+
   return (
     <>
       {/* Top Bar */}
       <header className="bg-orange-500 text-white text-sm py-2 flex justify-between items-center px-4 relative">
         <div>This bar is changeable</div>
         {/* Icons Section */}
-        <div className="icons flex gap-4 relative">
+        <div className="icons items-center flex gap-4 relative">
           <a href="#">
             <img src="/icons/search.svg" alt="Search" className="w-6 h-6" />
           </a>
@@ -21,20 +37,22 @@ function Navbar({ navLinks }) {
             <img src="/icons/profile.svg" alt="Profile" className="w-6 h-6" />
           </a>
           {/* Language Dropdown - Keep Open When Hovering */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsDropdownOpen(true)}
-            onMouseLeave={() => setIsDropdownOpen(false)}
-          >
-            <button className="focus:outline-none">
+
+          {/* Add a parent div with `group` class */}
+          <div className="relative" onMouseEnter={handleMouseEnter}>
+            <a className="focus:outline-none">
               <img
                 src="/icons/language.svg"
                 alt="Language"
                 className="w-6 h-6"
               />
-            </button>
+            </a>
+            {/* Dropdown menu */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-32 bg-white text-black shadow-lg rounded-md">
+              <div
+                className="absolute z-10 translate-y-[100%] bottom-0 right-0  w-32 bg-white text-black shadow-lg rounded-md"
+                onMouseLeave={handleMouseLeave}
+              >
                 <button className="block w-full text-left px-4 py-2 hover:bg-gray-200">
                   Arabic
                 </button>
@@ -45,6 +63,7 @@ function Navbar({ navLinks }) {
             )}
           </div>
         </div>
+        {isDashboard ? <LogOutBtn /> : null}
       </header>
       {/* Navbar */}
       <nav className="navbar relative shadow-md py-4 flex justify-between items-center px-4">

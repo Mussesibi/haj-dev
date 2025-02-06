@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-
-const SECRET_KEY = process.env.SECRET_KEY || "your_secret_key";
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const token = req.cookies.get("token")?.value; // Get JWT from cookies
+  const token = req.cookies.get("accessToken")?.value; // Get JWT from cookies
+  // console.log("Middleware token:", token);
 
   if (pathname === "/admin/login" && token) {
     try {
-      jwt.verify(token, SECRET_KEY);
       // If token is valid, redirect to dashboard
       return NextResponse.redirect(new URL("/admin/dashboard", req.url));
     } catch (error) {
@@ -20,14 +17,14 @@ export function middleware(req: NextRequest) {
   if (pathname === "/admin/dashboard") {
     if (!token) {
       // If no token, redirect to login
+      console.log("NO TOKEN, redirecting to login.");
       return NextResponse.redirect(new URL("/admin/login", req.url));
     }
 
     try {
-      jwt.verify(token, SECRET_KEY);
       return NextResponse.next();
     } catch (error) {
-      console.log("Invalid token, redirecting to login.");
+      console.log("Invalid token, redirecting to login.", error);
       return NextResponse.redirect(new URL("/admin/login", req.url));
     }
   }
@@ -36,5 +33,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/dashboard"],
+  matcher: ["/admin/:path*"],
 };

@@ -37,11 +37,7 @@ export default function AdminLogin() {
       setError(result.message || "Login failed");
       return;
     }
-    console.log("hello");
 
-    // ✅ Store access token in memory
-    sessionStorage.setItem("accessToken", result.token);
-    await new Promise((resolve) => setTimeout(resolve, 500)); // Small delay
     router.push("/admin/dashboard");
   };
 
